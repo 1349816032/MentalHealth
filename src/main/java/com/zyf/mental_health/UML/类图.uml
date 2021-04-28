@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.zyf.mental_health.controller.VerifyController</OriginalElement>
+  <nodes>
+    <node x="483.0" y="162.5">com.zyf.mental_health.data.MedicalRecord</node>
+    <node x="279.5" y="0.0">javax.persistence.Entity</node>
+    <node x="1710.0" y="1323.0">com.zyf.mental_health.controller.AdminController</node>
+    <node x="222.0" y="105.0">com.zyf.mental_health.data.Doctor</node>
+    <node x="361.0" y="1334.5">com.zyf.mental_health.controller.VerifyController</node>
+    <node x="911.5" y="938.0">org.springframework.web.bind.annotation.RequestMapping</node>
+    <node x="0.0" y="139.5">com.zyf.mental_health.data.Patient</node>
+    <node x="1352.0" y="1278.5">com.zyf.mental_health.controller.PatientController</node>
+    <node x="1137.5" y="1018.5">org.springframework.stereotype.Controller</node>
+    <node x="884.0" y="1267.0">com.zyf.mental_health.controller.LogInController</node>
+    <node x="0.0" y="1244.0">com.zyf.mental_health.controller.DoctorController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zyf.mental_health.controller.LogInController" target="org.springframework.stereotype.Controller">
+      <point x="112.0" y="-106.5" />
+      <point x="1220.0" y="1224.0" />
+      <point x="1201.5" y="1224.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.DoctorController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="-85.25" y="-129.5" />
+      <point x="85.25" y="1194.0" />
+      <point x="932.0999999999999" y="1194.0" />
+      <point x="-82.39999999999998" y="108.0" />
+    </edge>
+    <edge source="com.zyf.mental_health.data.Doctor" target="javax.persistence.Entity">
+      <point x="0.0" y="-394.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.VerifyController" target="org.springframework.stereotype.Controller">
+      <point x="125.75" y="-39.0" />
+      <point x="738.25" y="1224.0" />
+      <point x="1175.9" y="1224.0" />
+      <point x="-25.59999999999991" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.data.MedicalRecord" target="javax.persistence.Entity">
+      <point x="0.0" y="-336.5" />
+      <point x="578.5" y="80.0" />
+      <point x="384.5" y="80.0" />
+      <point x="42.0" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.LogInController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="-112.0" y="-106.5" />
+      <point x="996.0" y="1204.0" />
+      <point x="1014.5" y="1204.0" />
+      <point x="0.0" y="108.0" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.DoctorController" target="org.springframework.stereotype.Controller">
+      <point x="85.25" y="-129.5" />
+      <point x="255.75" y="1214.0" />
+      <point x="1150.3" y="1214.0" />
+      <point x="-51.200000000000045" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.VerifyController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="-125.75" y="-39.0" />
+      <point x="486.75" y="1204.0" />
+      <point x="973.3" y="1204.0" />
+      <point x="-41.200000000000045" y="108.0" />
+    </edge>
+    <edge source="com.zyf.mental_health.data.Patient" target="javax.persistence.Entity">
+      <point x="0.0" y="-359.5" />
+      <point x="101.0" y="80.0" />
+      <point x="300.5" y="80.0" />
+      <point x="-42.0" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.PatientController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="-84.5" y="-95.0" />
+      <point x="1436.5" y="1204.0" />
+      <point x="1055.7" y="1204.0" />
+      <point x="41.200000000000045" y="108.0" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.AdminController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="-45.5" y="-50.5" />
+      <point x="1755.5" y="1184.0" />
+      <point x="1096.9" y="1184.0" />
+      <point x="82.40000000000009" y="108.0" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.AdminController" target="org.springframework.stereotype.Controller">
+      <point x="45.5" y="-50.5" />
+      <point x="1846.5" y="1174.0" />
+      <point x="1252.7" y="1174.0" />
+      <point x="51.200000000000045" y="27.5" />
+    </edge>
+    <edge source="com.zyf.mental_health.controller.PatientController" target="org.springframework.stereotype.Controller">
+      <point x="84.5" y="-95.0" />
+      <point x="1605.5" y="1194.0" />
+      <point x="1227.1" y="1194.0" />
+      <point x="25.59999999999991" y="27.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1599372384937239" x="843.9615192912468" y="1125.9840011887234" />
+  <SelectedNodes>
+    <node>com.zyf.mental_health.data.Patient</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

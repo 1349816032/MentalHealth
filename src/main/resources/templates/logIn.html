@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MentalHealth-登录</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+</head>
+<body>
+<!--引入头部-->
+<div class="navitem">
+    <ul class="nav">
+        <li></li>
+    </ul>
+</div>
+
+<!-- 头部 end -->
+<section id="login_wrap">
+    <div class="fullscreen-bg" style="height: 532px;">
+        <img th:src="@{/images/login_pic.jpg}"/>
+    </div>
+    <div class="login-box">
+        <div class="title">
+            <img th:src="@{/images/login_logo.png}" alt="">
+            <span>欢迎</span>
+        </div>
+        <div class="login_inner">
+
+            <!--登录错误提示消息-->
+            <form  th:action="@{/user/loginUpload}" th:object="${user}" id="sendForm" method="post">
+                <input type="hidden" name="action" value="login"/>
+                <input name="username" type="text" placeholder="请输入账号" autocomplete="off" th:field="*{id}">
+                <input name="password" type="password" placeholder="请输入密码" autocomplete="off" th:filed="*{password}">
+                <span th:if="${confirm} == 'false'" >*账号或者密码错误,请重新输入</span>
+                <span th:unless="${confirm} == 'false'"></span>
+
+                <div class="verify">
+                    <label for="verifyCode"></label><input name="check" type="text" placeholder="请输入验证码" id="verifyCode"
+                                                           autocomplete="off">
+                    <img src="http://127.0.0.1:8080/verify/verifyImage/1" alt="" id="imageCode">
+                    <script type="text/javascript">
+                        let href = "http://127.0.0.1:8080/verify/verifyImage/";
+                        //图片点击事件
+                        let imageCode = document.getElementById("imageCode");
+                        imageCode.addEventListener("click", function changeCheckCode() {
+                            imageCode.src = href + new Date().getMilliseconds();
+                        });
+                    </script>
+
+                </div>
+
+                <div class="submit_btn">
+                    <button type="button" id="sendButton">登录</button>
+                    <script type="text/javascript">
+                        $("#sendButton").click(function () {
+                            $.ajax({
+                                method: "Post",
+                                url: "/user/checkVerifyCode",
+                                data: {"code": $("#verifyCode").val()},
+                                success: function (successText) {
+                                    console.log("successText: " + successText);
+                                    if (successText === "OK") {
+                                        let sendForm = document.getElementById("sendForm");
+                                        sendForm.submit();
+                                        return;
+                                    }
+                                    confirm("验证码错误");
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!--引入尾部-->
+<div>
+    <footer id="footer">
+        <div class="why_select">
+            <dl>
+                <dt class="fl">
+                    <img th:src="@{images/icon_1.jpg}" alt="">
+                </dt>
+                <dd>
+                    <h1>产品齐全</h1>
+                    <h2>产品全自主选，随心买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img th:src="@{images/icon_2.jpg}" alt="">
+                </dt>
+                <dd>
+                    <h1>便利快捷</h1>
+                    <h2>24小时不打烊，随时买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img th:src="@{images/icon_3.jpg}" alt="">
+                </dt>
+                <dd>
+                    <h1>安全支付</h1>
+                    <h2>知名支付工具，放心买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img th:src="@{images/icon_4.jpg}" alt="">
+                </dt>
+                <dd style="margin-right:0px;">
+                    <h1>贴心服务</h1>
+                    <h2>客服全年无休，安心买</h2>
+                </dd>
+            </dl>
+        </div>
+        <div class="company">
+            <!--            <p>江苏传智播客教育科技股份有限公司 版权所有Copyright 2006-2018, All Rights Reserved 苏ICP备16007882</p>-->
+        </div>
+    </footer>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

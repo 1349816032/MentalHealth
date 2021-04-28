@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    .P_textarea{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: auto !important;
+    }
+    .P_textarea .td_right textarea{
+        margin-left: 32px;
+        height: 200px;
+        width: 452px;
+    }
+    .P_textarea .td_left{
+        flex: 1;
+    }
+</style>
+<body>
+<header>
+    <div class="top_banner">
+        <img th:src="@{/images/Banner.png}" alt="">
+    </div>
+</header>
+<div class="content">
+    <div class="navitem">
+        <div class="shortcut">
+
+            <div class="login">
+                <img th:src="@{/images/profile.png}">
+                <div class="user_info">
+                    <div th:text="${admin}"></div>
+                    <div id="Date" th:text="${Date}" ></div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="/admin/doctorManage">医生信息管理</a></li>
+            <li><a href="/admin/patientManage" >病人信息管理</a></li>
+            <li id="statistic" onmouseover="show()" onmouseout="away()">
+                <a href="/Data/statistics">统计</a>
+                <ul id="rate">
+                    <li><a onclick="charts()">病人年龄分布</a></li>
+                    <li><a onclick="genderRate()">病人性别分布</a></li>
+                    <li><a onclick="occupationRate()">病人职业分布</a></li>
+                    <li><a onclick="doctorCharts()">医生年龄分布</a></li>
+                    <li><a onclick="doctorGender()">医生性别分布</a></li>
+                </ul></li>
+            <li><a href="/user/login" >退出</a></li>
+            <script>
+                function show() {
+                    let obj=document.getElementById("rate");
+                    obj.style.cssText=" display: block;";
+                }
+                function away() {
+                    let obj=document.getElementById("rate");
+                    obj.style.cssText=" display: none;";
+                }
+            </script>
+
+        </ul>
+    </div>
+    <div class="rg_layout">
+        <div class="rg_form clearfix">
+            <div class="rg_form_left">
+                <p>建立病人档案</p>
+            </div>
+            <div class="rg_form_center">
+                <div id="errorMsg" style="color:red;text-align: center"></div>
+                <!--注册表单-->
+                <form id="registerForm" th:action="@{/admin/change}"
+                      th:object="${patient}" method="post">
+                    <table style="margin-top: 25px;">
+
+                        <tr>
+                            <td class="td_left">
+                                <label for="pid">身份证</label>
+                            </td>
+                            <td class="td_right ">
+                                <input type="text" id="pid" name="pid" th:filed="*{pid}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="pname">姓名</label>
+                            </td>
+                            <td class="td_right">
+                                <input type="text" id="pname" name="pname"  th:filed="*{pname}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="occupation">职业</label>
+                            </td>
+                            <td class="td_right">
+                                <input type="text" id="occupation" name="occupation" th:filed="*{occupation}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="ptel">手机号</label>
+                            </td>
+                            <td class="td_right">
+                                <input type="text" id="ptel" name="ptel" th:filed="*{ptel}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="sex">性别</label>
+                            </td>
+                            <td class="td_right">
+                                <input type="text" id="sex" name="pgender" th:filed="*{pgender}" >
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="sex">年龄</label>
+                            </td>
+                            <td class="td_right ">
+                                <input type="text"  name="page" th:filed="*{page}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">
+                                <label for="sex">初次就诊时间</label>
+                            </td>
+                            <td class="td_right ">
+                                <label>
+                                    <input type="text"  name="time" th:filed="*{time}">
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--                    <table>-->
+                    <!--                        <tr class="P_textarea">-->
+                    <!--                            <td class="td_left ">-->
+                    <!--                                <label for="sex">病情诊断</label>-->
+                    <!--                            </td>-->
+                    <!--                            <td class="td_right ">-->
+                    <!--                                <textarea rows="10" cols="50" name="diagnosis" th:filed="*{diagnosis}" id="diagnosis"></textarea>-->
+                    <!--                            </td>-->
+                    <!--                        </tr>-->
+                    <!--                    </table>-->
+                    <input type="submit" class="submit" value="保存">
+
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div>
+    <footer id="footer">
+        <div class="why_select">
+            <dl>
+                <dt class="fl">
+                    <img src="images/icon_1.jpg" alt="">
+                </dt>
+                <dd>
+                    <h1>产品齐全</h1>
+                    <h2>产品全自主选，随心买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img src="images/icon_2.jpg" alt="">
+                </dt>
+                <dd>
+                    <h1>便利快捷</h1>
+                    <h2>24小时不打烊，随时买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img src="images/icon_3.jpg" alt="">
+                </dt>
+                <dd>
+                    <h1>安全支付</h1>
+                    <h2>知名支付工具，放心买</h2>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="fl">
+                    <img src="images/icon_4.jpg" alt="">
+                </dt>
+                <dd style="margin-right:0px;">
+                    <h1>贴心服务</h1>
+                    <h2>客服全年无休，安心买</h2>
+                </dd>
+            </dl>
+        </div>
+        <div class="company">
+            <!--            <p>江苏传智播客教育科技股f份有限公司 版权所有Copyright 2006-2018, All Rights Reserved 苏ICP备16007882</p>-->
+        </div>
+    </footer>
+</div>
+</body>
+</html>

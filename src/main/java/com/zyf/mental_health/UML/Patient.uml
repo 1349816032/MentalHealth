@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.zyf.mental_health.data.Patient</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">com.zyf.mental_health.data.Patient</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="52.0" y="438.0" />
+  <SelectedNodes>
+    <node>com.zyf.mental_health.data.Patient</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

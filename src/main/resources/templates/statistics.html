@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>统计</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+</head>
+
+<style>
+    .rg_layout{
+        width: 80%;
+        height: 500px;
+        overflow: hidden;
+        align-content: center;
+    }
+    .rg_layout .rg_form{
+        width: 886px;
+        height: 500px;
+        background-color: #fff;
+        margin:24px auto;
+        border:8px solid #eeeeee;
+        box-sizing: border-box;
+        align-content: center;
+    }
+
+    .rg_layout .rg_form > .rg_form_left{
+        width:256px;
+        float: left;
+        padding-top:20px;
+        padding-left: 20px;
+        box-sizing: border-box;
+    }
+    .rg_layout .rg_form > .rg_form_center{
+        width:358px;
+        float: left;
+        padding-top:10px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    .rg_layout .rg_form > .rg_form_right{
+        width:256px;
+        float: right;
+    }
+
+    .rg_form > .rg_form_left > p:first-child{
+        font-size: 20px;
+        color:#ffcd26;
+
+    }
+    .rg_form > .rg_form_left > p:last-child{
+        font-size: 20px;
+        color: #a6a6a6;
+    }
+    .rg_form > .rg_form_center .td_left{
+        width: 65px;
+        text-align: right;
+    }
+    .rg_form > .rg_form_center table{
+        vertical-align: top;
+    }
+    .rg_form > .rg_form_center table tr{
+        height: 50px;
+    }
+    .rg_form > .rg_form_center .td_right{
+        width: 293px;
+    }
+    .rg_form_center .td_right > input[type="text"],input[type="password"],.rg_form_center .td_right > input[type="date"]{
+        width: 256px;
+        height: 32px;
+        line-height: 32px;
+        box-sizing: border-box;
+        padding: 6px 12px;
+        border-radius: 4px;
+        border:1px solid #a6a6a6;
+        float: right;
+    }
+    .rg_form > .rg_form_center .td_right.gender{
+        padding-left: 40px;
+        box-sizing: border-box;
+    }
+    .rg_form > .rg_form_center .td_right.check{
+        padding-left: 36px;
+        box-sizing: border-box;
+    }
+    .rg_form > .rg_form_center .td_right > .check{
+        width: 118px;
+        float: left;
+        margin-right:14px;
+    }
+    .rg_form > .rg_form_center .td_right > .submit{
+        width: 120px;
+        height: 36px;
+        line-height: 36px;
+        background-color: #ffc900;
+        font-size: 14px;
+    }
+    .rg_form > .rg_form_right >p{
+        float: right;
+        font-size: 14px;
+        padding: 20px 12px 0 0;
+        box-sizing: border-box;
+    }
+    .rg_form > .rg_form_right >p >a{
+        color: #fc8989;
+    }
+    .P_textarea{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: auto !important;
+    }
+    .P_textarea .td_right textarea{
+        margin-left: 32px;
+        height: 200px;
+        width: 452px;
+    }
+    .P_textarea .td_left{
+        flex: 1;
+    }
+</style>
+<body>
+<header>
+    <div class="top_banner">
+        <img th:src="@{/images/Banner.png}" alt="">
+    </div>
+</header>
+<div class="content">
+    <div class="navitem">
+        <div class="shortcut">
+
+            <div class="login">
+                <img th:src="@{/images/profile.png}">
+                <div class="user_info">
+                    <div th:text="${doctor_name}"></div>
+                    <div id="Date" th:text="${Date}" ></div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="/admin/doctorManage">医生信息管理</a></li>
+            <li><a href="/admin/patientManage" >病人信息管理</a></li>
+            <li id="statistic" onmouseover="show()" onmouseout="away()">
+                <a href="/Data/statistics">统计</a>
+                <ul id="rate">
+                <li><a onclick="charts()">病人年龄分布</a></li>
+                <li><a onclick="genderRate()">病人性别分布</a></li>
+                <li><a onclick="occupationRate()">病人职业分布</a></li>
+                <li><a onclick="doctorCharts()">医生年龄分布</a></li>
+                <li><a onclick="doctorGender()">医生性别分布</a></li>
+            </ul></li>
+            <li><a href="/user/login" >退出</a></li>
+            <script>
+                function show() {
+                    let obj=document.getElementById("rate");
+                    obj.style.cssText=" display: block;";
+                }
+                function away() {
+                    let obj=document.getElementById("rate");
+                    obj.style.cssText=" display: none;";
+                }
+            </script>
+
+        </ul>
+    </div>
+    <div  class="rg_layout">
+<!--            <div class="rg_form_left">-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <td><input type="button" class="submit" onclick="charts()" value="年龄比"/></td>-->
+<!--                        <td><input type="button" class="submit" onclick="genderRate()" value="性别比" /></td>-->
+<!--                        <td><input type="button" class="submit" onclick="occupationRate()" value="职业分布" /></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </div>-->
+            <div id="main" class="rg_form">
+        </div>
+
+        <div></div>
+    </div>
+</div>
+<script type="text/javascript">
+    function genderRate(){
+        $.ajax({
+            url:"/Data/genderRate",
+            success:function(statistics){
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('main'));
+                // 指定图表的配置项和数据
+                let option = {
+                    title: {
+                        text: statistics["title"]
+                    },
+                    tooltip: {},
+                    series: [{
+                        name: statistics["legend"],
+                        type: 'pie',
+                        radius: '55%',
+                        data: [{value: statistics["male"], name: "male"},
+                            {value: statistics["female"], name:"female"}
+                        ]
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        });
+
+    }
+
+</script>
+<script type="text/javascript">
+    function doctorGender(){
+        $.ajax({
+            url:"/Data/doctorGender",
+            success:function(statistics){
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('main'));
+                // 指定图表的配置项和数据
+                let option = {
+                    title: {
+                        text: statistics["title"]
+                    },
+                    tooltip: {},
+                    series: [{
+                        name: statistics["legend"],
+                        type: 'pie',
+                        radius: '55%',
+                        data: [{value: statistics["male"], name: "male"},
+                            {value: statistics["female"], name:"female"}
+                        ]
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
+        });
+
+    }
+
+</script>
+<script type="text/javascript">
+    function charts(){
+        let myChart = echarts.init(document.getElementById('main'));
+
+        $.ajax({
+        url:"/Data/ageRate",
+        success: function (responseData) {
+
+            let option = {
+                title: {
+                    text: "病人年龄分布"
+                },
+                tooltip: {},
+
+                xAxis: {
+                    data: ["0-18岁","19-25岁","26-32岁","33-40岁","40-48岁","48-60岁","60岁以上"]
+                },
+                yAxis: {
+
+                },
+                series:{
+                    name: "就诊次数",
+                    data: responseData,
+                    type: "bar"
+                }
+            }
+            myChart.setOption(option);
+        }
+    })
+    }
+</script>
+<script type="text/javascript">
+    function doctorCharts(){
+        let myChart = echarts.init(document.getElementById('main'));
+
+        $.ajax({
+        url:"/Data/doctorAge",
+        success: function (responseData) {
+
+            let option = {
+                title: {
+                    text: "医生年龄分布"
+                },
+                tooltip: {},
+
+                xAxis: {
+                    data: ["0-18岁","19-25岁","26-32岁","33-40岁","40-48岁","48-60岁","60岁以上"]
+                },
+                yAxis: {
+
+                },
+                series:{
+                    name: "就诊次数",
+                    data: responseData,
+                    type: "bar"
+                }
+            }
+            myChart.setOption(option);
+        }
+    })
+    }
+</script>
+<script type="text/javascript">
+    function occupationRate(){
+        let myChart = echarts.init(document.getElementById('main'));
+
+        $.ajax({
+            url:"/Data/occupationRate",
+            success: function (responseData) {
+
+                let option = {
+                    title: {
+                        text: "病人职业分布"
+                    },
+                    tooltip: {},
+
+                    xAxis: {
+                        data: responseData["2"]
+                    },
+                    yAxis: {
+
+                    },
+                    series:{
+                        name: "就诊次数",
+                        data: responseData["1"],
+                        type: "bar"
+                    }
+                }
+                myChart.setOption(option);
+            }
+        })
+    }
+</script>
+
+<!--<script type="text/javascript">-->
+<!--    $.ajax({-->
+<!--        url:"/Data/jiuzhenRate",-->
+<!--        success: function (statistics) {-->
+<!--            let data1=[10];-->
+<!--            let data2=[10];-->
+<!--            let i=0;-->
+<!--            console.log(1);-->
+<!--            let myChart = echarts.init(document.getElementById('main'));-->
+<!--            for(let key in statistics){-->
+<!--                console.log(key);-->
+<!--                data1[i]=key;-->
+<!--                data2[i]=statistics[key];-->
+<!--                i++;-->
+<!--            }-->
+<!--            console.log(data1);-->
+<!--            console.log(data2);-->
+<!--            let option = {-->
+<!--                title: {-->
+<!--                    text: "就诊次数比"-->
+<!--                },-->
+<!--                tooltip: {},-->
+
+<!--                xAxis: {-->
+<!--                    data:data1-->
+<!--                },-->
+<!--                yAxis: {-->
+
+<!--                },-->
+<!--                series:{-->
+<!--                    name: "就诊次数",-->
+<!--                    data: data2,-->
+<!--                    type: "bar"-->
+<!--                }-->
+<!--            }-->
+<!--            myChart.setOption(option);-->
+<!--        }-->
+<!--    })-->
+<!--</script>-->
+<footer id="footer">
+    <div class="why_select">
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_1.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>产品齐全</h1>
+                <h2>产品全自主选，随心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_2.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>便利快捷</h1>
+                <h2>24小时不打烊，随时买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_3.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>安全支付</h1>
+                <h2>知名支付工具，放心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_4.jpg" alt="">
+            </dt>
+            <dd style="margin-right:0px;">
+                <h1>贴心服务</h1>
+                <h2>客服全年无休，安心买</h2>
+            </dd>
+        </dl>
+    </div>
+    <div class="company">
+        <!--            <p>江苏传智播客教育科技股份有限公司 版权所有Copyright 2006-2018, All Rights Reserved 苏ICP备16007882</p>-->
+    </div>
+</footer>
+
+</body>
+</html>

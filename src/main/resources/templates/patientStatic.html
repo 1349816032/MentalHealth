@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+</head>
+<style>
+    table,table tr td {
+        text-align:right;
+
+        border:1px solid #ccc;
+    }
+    table tr td{
+        text-align:left;
+
+        padding: 5px 10px;
+    }
+</style>
+<body>
+<header>
+    <div class="top_banner">
+        <img th:src="@{/images/Banner.png}" alt="">
+    </div>
+</header>
+<div class="content">
+    <div class="navitem">
+        <div class="shortcut">
+
+            <div class="login">
+                <img th:src="@{/images/profile.png}">
+                <div class="user_info">
+                    <div th:text="${doctor_name}"></div>
+                    <div id="Date" th:text="${Date}" ></div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav">
+            <li><a href="/user/doctor">个人信息</a></li>
+            <li class="nav-active"><a href="/doctor/patientData">病人信息</a></li>
+            <li><a href="/doctor/quiry">问诊</a></li>
+            <li><a href="/user/login">退出</a></li>
+        </ul>
+    </div>
+    <div class="rg_layout">
+        <div class="rg_form clearfix">
+            <div class="rg_form_center">
+                <table>
+                    <tr>
+                        <td class="td_left"><label>姓名：</label></td>
+                        <td class="td_right"><p th:text="${patient.getPname()}"></p></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label  >身份证号：</label></td>
+                        <td class="td_right"><label th:text="${patient.getPid()}"></label></td>
+                    </tr>
+
+                    <tr>
+                        <td class="td_left"><label>职业：</label></td>
+                        <td class="td_right"><label th:text="${patient.getOccupation()}"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label >性别： </label></td>
+                        <td class="td_right"><label th:text="${patient.getPgender()}"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label >年龄： </label></td>
+                        <td class="td_right"><p th:text="${patient.getPage()}"></p></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"><label >就诊次数： </label></td>
+                        <td class="td_right"><p th:text="${count}"></p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="why_select">
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_1.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>产品齐全</h1>
+                <h2>产品全自主选，随心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_2.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>便利快捷</h1>
+                <h2>24小时不打烊，随时买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_3.jpg" alt="">
+            </dt>
+            <dd>
+                <h1>安全支付</h1>
+                <h2>知名支付工具，放心买</h2>
+            </dd>
+        </dl>
+        <dl>
+            <dt class="fl">
+                <img src="images/icon_4.jpg" alt="">
+            </dt>
+            <dd style="margin-right:0px;">
+                <h1>贴心服务</h1>
+                <h2>客服全年无休，安心买</h2>
+            </dd>
+        </dl>
+    </div>
+    <div class="company">
+        <!--            <p>江苏传智播客教育科技股份有限公司 版权所有Copyright 2006-2018, All Rights Reserved 苏ICP备16007882</p>-->
+    </div>
+</footer>
+</body>
+</html>
